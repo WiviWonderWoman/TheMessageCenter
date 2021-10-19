@@ -1,24 +1,23 @@
 # TheMessageCenter
-## An ASP.NET Core SignalR Chat with a React TypeScript client
+### An ASP.NET Core SignalR Chat with a React TypeScript client
 I've chosen to implement idea number 2, "*A chat where everyone can talk to each other, something like Slack.*" by using templets for:
 * **dotnet webapi** for the server-side API
 * **create-react-app --template typescript** for the client, a graphical user interface
 
 To enable real-time communication I'll install @microsoft/signalr on the client.
 ___________________________________________________________________________________________________________________________________________________________________________________
-## Instructions. How to instal and use the application
-### Instal
+# Instructions. 
+## Instal
 * open a terminal in the root-folder and type:
 * cd chat-client 
 * npm ci
-### Start
-#### Server
+## Start the Server
 * open a terminal in the root-folder and type:
 * dotnet run -p ./Chat.Api/Chat.Api.csproj
-or
+### or
 * cd Chat.Api 
 * dotnet run
-#### Client
+## Start the Client
 * open a terminal in the root-folder and type:
 * cd chat-client 
 * npm start
