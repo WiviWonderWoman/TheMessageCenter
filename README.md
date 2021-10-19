@@ -7,6 +7,21 @@ I've chosen to implement idea number 2, "*A chat where everyone can talk to each
 To enable real-time communication I'll install @microsoft/signalr on the client.
 ___________________________________________________________________________________________________________________________________________________________________________________
 ## Instructions. How to instal and use the application
+### Instal
+* open a terminal in the root-folder and type:
+* cd chat-client 
+* npm ci
+### Start
+#### Server
+* open a terminal in the root-folder and type:
+* dotnet run -p ./Chat.Api/Chat.Api.csproj
+or
+* cd Chat.Api 
+* dotnet run
+#### Client
+* open a terminal in the root-folder and type:
+* cd chat-client 
+* npm start
 ___________________________________________________________________________________________________________________________________________________________________________________
 ## Project planning
 ### A picture of my initial plan, a Kanban board here in my GitHub repo as a project.
