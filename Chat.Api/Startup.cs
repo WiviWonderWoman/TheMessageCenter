@@ -31,7 +31,7 @@ namespace Chat.Api
 
             services.AddCors(options =>
             {
-                options.AddPolicy("ClientPermission", policy =>
+                options.AddPolicy("Clients", policy =>
                 {
                     policy.AllowAnyHeader()
                         .AllowAnyMethod()
@@ -58,6 +58,8 @@ namespace Chat.Api
             }
 
             app.UseHttpsRedirection();
+
+            app.UseCors("Clients");
 
             app.UseRouting();
 
