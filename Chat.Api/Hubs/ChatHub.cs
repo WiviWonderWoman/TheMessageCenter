@@ -12,7 +12,7 @@ namespace Chat.Api.Hubs
     public class ChatHub : Hub<IChatClient>
     {
         //TODO: Implement Message
-        public async Task SendMessage(Message message)
+        public async Task SendMessage(ChatMessage message)
         {
             await Clients.All.ReceiveMessage(message);
         }
