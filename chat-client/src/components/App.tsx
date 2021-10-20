@@ -1,4 +1,5 @@
 import { Component, createRef } from "react";
+import { HashRouter as Router } from "react-router-dom";
 import chat from "../images/chat.png";
 import { HubConnectionBuilder } from "@microsoft/signalr";
 import { Chat } from "./Chat";
@@ -75,9 +76,9 @@ export class App extends Component<{}, State> {
 
         else {
             return(
-                <>
+                <Router>
                     <Chat/>
-                </>
+                </Router>
             )
         }  
     }
