@@ -1,6 +1,9 @@
 import { Component } from "react";
 import { Switch, Route, Link } from "react-router-dom";
 import '../index.css';
+import { CleaningChatRoom } from "./CleaningChatRoom";
+import { GeneralChatRoom } from "./GeneralChatRoom";
+import { KitchenChatRoom } from "./KitchenChatRoom";
 
 export class Chat extends Component<{},{}> {
 
@@ -18,13 +21,13 @@ export class Chat extends Component<{},{}> {
                 </nav>
                 <Switch>
                     <Route exact path={'/general'}>
-                        
+                        <GeneralChatRoom/>
                     </Route>
                     <Route exact path={'/kitchen'}>
-                        
+                        <KitchenChatRoom/>
                     </Route>
                     <Route exact path={'/cleaning'}>
-                        
+                        <CleaningChatRoom/>
                     </Route>
                 </Switch>
             </div>
