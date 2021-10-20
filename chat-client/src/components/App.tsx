@@ -1,19 +1,22 @@
 import { Component, createRef } from "react";
-import chat from "./images/chat.png";
-import "./App.css";
+import chat from "../images/chat.png";
+import { HubConnectionBuilder } from "@microsoft/signalr";
+import { Chat } from "./Chat";
 
-interface Props {
-    connection: any
-}
 interface State {
+    connection: any,
     userId: string,
     userName: string,
     isClicked: boolean
 }
 
-export class App extends Component<Props, State> {
-    
+export class App extends Component<{}, State> {
+
     state: State = {
+        connection: new HubConnectionBuilder()
+        .withUrl('https://localhost:5001/hubs/chat')
+        .withAutomaticReconnect()
+        .build(),
         userId: '',
         userName: '',
         isClicked: false
@@ -28,14 +31,14 @@ export class App extends Component<Props, State> {
     private userNameRef = createRef<HTMLInputElement>();
 
     componentDidMount() {
-        if (this.props.connection) {
-            this.props.connection.start()
+
+        if (this.state.connection) {
+            this.state.connection.start()
             .then(() => {
-                var userId = this.props.connection.connectionId;
-                // console.log('User with userId: ', userId, ' is connected!');
+                var userId = this.state.connection.connectionId;
+                console.log('User with userId: ', userId, ' is connected!');
                 this.setState({
-                    userId: userId,
-                    userName: 'Användarnamn'
+                    userId: userId
                 });
                 //  console.log('State userId: ', this.state.userId);
             })
@@ -72,9 +75,9 @@ export class App extends Component<Props, State> {
 
         else {
             return(
-                <div className='App-header'>
-                    <h1>Chat</h1>  
-                </div>
+                <>
+                    <Chat/>
+                </>
             )
         }  
     }
