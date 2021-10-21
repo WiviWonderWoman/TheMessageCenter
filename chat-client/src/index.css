@@ -31,16 +31,7 @@ body {
   color: #61dafb;
 }
 
-.navbar {
+.chatList {
   list-style: none;
-  display: flex;
 }
 
-.navlink {
-  text-decoration: none;
-  color: whitesmoke;
-  background-color: gray;
-  border-radius: 5px;
-  margin: 20px;
-  padding: 5px;
-}

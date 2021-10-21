@@ -19,8 +19,8 @@ export class ChatInput extends Component<Props, State> {
     constructor(props: Props) {
         super(props);
         this.handelChange = this.handelChange.bind(this);
-        this.handleClick = this.handleClick.bind(this);
-        this.leaveRoom = this.leaveRoom.bind(this);
+        this.handleSend = this.handleSend.bind(this);
+        this.handleLeave = this.handleLeave.bind(this);
     }
 
     handelChange() {
@@ -29,14 +29,14 @@ export class ChatInput extends Component<Props, State> {
         });
     }
 
-    handleClick() {
+    handleSend() {
         this.props.sendMessage(this.state.message);
         // console.log('ChatMessage: ',this.messageRef.current!.value);
         // console.log('State message: ', this.state.message);
         this.messageRef.current!.value = '';
     }    
 
-    leaveRoom() {
+    handleLeave() {
         this.props.leaveRoom();
     }
 
@@ -47,8 +47,8 @@ export class ChatInput extends Component<Props, State> {
                 <p> Inloggad som: {this.props.user}</p>
                 <label htmlFor='message'>Börja chatta:</label><br/><br/>
                 <input id='message' ref={this.messageRef} type='text'  onChange={this.handelChange}></input><br/><br/>
-                <button onClick={this.handleClick}>Skicka</button><br/><br/><br/><br/>
-                <button onClick={this.leaveRoom}>Lämna</button>
+                <button onClick={this.handleSend}>Skicka</button><br/><br/><br/><br/>
+                <button onClick={this.handleLeave}>Lämna</button>
             </div>
         )
     }
