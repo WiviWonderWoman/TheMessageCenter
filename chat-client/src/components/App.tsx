@@ -1,13 +1,12 @@
 import { Component, createRef } from "react";
-import { HashRouter as Router } from "react-router-dom";
 import chat from "../images/chat.png";
 import { HubConnectionBuilder } from "@microsoft/signalr";
-import { Chat } from "./Chat";
+import { Room } from "./Room";
 
 interface State {
     connection: any,
     userId: string,
-    userName: string,
+    roomName: string,
     isClicked: boolean
 }
 
@@ -19,7 +18,7 @@ export class App extends Component<{}, State> {
         .withAutomaticReconnect()
         .build(),
         userId: '',
-        userName: '',
+        roomName: '',
         isClicked: false
     }
 
@@ -27,9 +26,10 @@ export class App extends Component<{}, State> {
         super(props);
         this.handleChange = this.handleChange.bind(this);
         this.handleClick = this.handleClick.bind(this);
+        this.joiningRoom = this.joiningRoom.bind(this);
     }
     // create a ref to store the textInput DOM element
-    private userNameRef = createRef<HTMLInputElement>();
+    private roomNameRef = createRef<HTMLInputElement>();
 
     componentDidMount() {
 
@@ -50,15 +50,31 @@ export class App extends Component<{}, State> {
     handleChange() {
         // console.log('userName: ', this.userNameRef.current!.value);
         this.setState({
-            userName: this.userNameRef.current!.value
+            roomName: this.roomNameRef.current!.value
         });
     }
 
     handleClick() {
+        console.log('RoomName: ',this.state.roomName);
+        this.joiningRoom(this.state.roomName);
         this.setState({
             isClicked: true
         });
         // console.log('State userId: ', this.state.userId, ' userName: ', this.state.userName, ' isClicked: ', this.state.isClicked);
+    }
+
+    async joiningRoom(roomName: string) {
+        if (this.state.connection) {
+            try {
+                await this.state.connection.invoke('AddToGroup', roomName);
+            } 
+            catch (error) {
+                console.log('Failed to join room: ', error)
+            }
+        }
+        else {
+            alert('No connection to server.');
+        }
     }
     
     render() {
@@ -67,8 +83,8 @@ export class App extends Component<{}, State> {
                 <div className='App-header'>
                     <h1>Välkommen till Hotell Mercer's chat!</h1>
                     <img src={chat} alt='chat icon' className='App-logo'></img>
-                    <p>Ange ditt användarnamn för att börja chatta:</p>
-                    <input ref={this.userNameRef} type='text' onChange={this.handleChange}/>
+                    <p>Ange rum för att börja chatta:</p>
+                    <input ref={this.roomNameRef} type='text' onChange={this.handleChange}/><br/><br/>
                     <button onClick={this.handleClick}>Starta Chatten!</button>
                 </div>
             )
@@ -76,9 +92,9 @@ export class App extends Component<{}, State> {
 
         else {
             return(
-                <Router>
-                    <Chat/>
-                </Router>
+                <>
+                    <Room connection={this.state.connection} roomName={this.state.roomName}/>
+                </>
             )
         }  
     }
