@@ -92,9 +92,9 @@ export class App extends Component<{}, State> {
 
         else {
             return(
-                <>
+                <div className='App-header'>
                     <Room connection={this.state.connection} roomName={this.state.roomName}/>
-                </>
+                </div>
             )
         }  
     }
