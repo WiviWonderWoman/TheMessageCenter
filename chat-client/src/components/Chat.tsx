@@ -4,13 +4,15 @@ import '../index.css';
 import { CleaningChatRoom } from "./CleaningChatRoom";
 import { GeneralChatRoom } from "./GeneralChatRoom";
 import { KitchenChatRoom } from "./KitchenChatRoom";
+import { Room } from "./Room";
 
 export class Chat extends Component<{},{}> {
 
     render() {
         return(
             <div className='App-header'>
-                <h1>Chat</h1> 
+                <Room roomName='general'/>
+                {/* <h1>Chat</h1> 
                 <p>Följande chat rum finns tillgängliga:</p> 
                 <nav>
                     <ul className='navbar'>
@@ -29,7 +31,7 @@ export class Chat extends Component<{},{}> {
                     <Route exact path={'/cleaning'}>
                         <CleaningChatRoom/>
                     </Route>
-                </Switch>
+                </Switch> */}
             </div>
         )
     }
