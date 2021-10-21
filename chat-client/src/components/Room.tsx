@@ -2,7 +2,8 @@ import { Component, createRef } from "react";
 import { ChatInput } from "./ChatInput";
 
 interface Props {
-    roomName: string
+    roomName: string,
+    connection: any
 }
 
 interface State {
@@ -29,6 +30,13 @@ export class Room extends Component<Props, State> {
         this.sendMessage = this.sendMessage.bind(this);
     }
 
+    componentDidMount() {
+        
+        this.props.connection.on('Send', (message: { userName: string, message: string}) => {
+            console.log(message);
+        })
+    }
+
     handelChange() {
         this.setState({
             user: this.userRef.current!.value,
@@ -44,8 +52,28 @@ export class Room extends Component<Props, State> {
         console.log('State user: ',this.state.user);
     }
     
-    sendMessage(message: string) {
-        console.log(message);
+    async sendMessage(message: string) {
+        var chatMessage = {
+            user: this.state.user,
+            message: message,
+        }
+        // console.log(chatMessage);
+
+        await this.props.connection.invoke('SendMessageToGroup', this.props.roomName, chatMessage)  
+    }
+
+    async leaveRoom() {
+        if (this.props.connection) {
+            try {
+                await this.props.connection.invoke('RemoveFromGroup', this.props.roomName);
+            } 
+            catch (error) {
+                console.log('Failed to join room: ', error)
+            }
+        }
+        else {
+            alert('No connection to server.');
+        }
     }
 
     render() {
@@ -62,7 +90,8 @@ export class Room extends Component<Props, State> {
         else {
             return(
                 <div>
-                    <ChatInput user={this.state.user} roomName={this.props.roomName} sendMessage={(message: string) => this.sendMessage(message)}/>
+                    <ChatInput user={this.state.user} roomName={this.props.roomName} sendMessage={(message: string) => this.sendMessage(message)} leaveRoom={() => this.leaveRoom()}/>
+                    
                 </div>
             )
         }

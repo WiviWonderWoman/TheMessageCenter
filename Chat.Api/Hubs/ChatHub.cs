@@ -9,39 +9,33 @@ using System.Threading.Tasks;
 
 namespace Chat.Api.Hubs
 {
-    public class ChatHub : Hub<IChatClient>
+    public class ChatHub : Hub
     {
-        public async Task SendMessage(ChatMessage message)
+        public async Task SendMessageToGroup(string roomName, ChatMessage message)
         {
-            await Clients.All.ReceiveMessage(message);
+            await Clients.Group(roomName).SendAsync("Send", message);
         }
 
-        public async Task JoinRoom(string connectionId, string roomName)
+        public async Task AddToGroup(string roomName)
         {
-            await Groups.AddToGroupAsync(connectionId, roomName);
+            await Groups.AddToGroupAsync(Context.ConnectionId, roomName);
 
-            var message = new ChatMessage
+            await Clients.Group(roomName).SendAsync("Send", new ChatMessage
             {
-                UserId = connectionId,
-                RoomName = roomName,
-                Message = $"{connectionId} has joined the group {roomName}."
-            };
-
-            await Clients.Group(roomName).ReceiveMessage(message);
+                User = Context.ConnectionId,
+                Message = $"{Context.ConnectionId} has joined the group {roomName}."
+            });
         }
 
-        public async Task LeaveRoom(string connectionId, string roomName)
+        public async Task RemoveFromGroup(string roomName)
         {
-            await Groups.RemoveFromGroupAsync(connectionId, roomName);
+            await Groups.RemoveFromGroupAsync(Context.ConnectionId, roomName);
 
-            var message = new ChatMessage
+            await Clients.Group(roomName).SendAsync("Send", new ChatMessage
             {
-                UserId = connectionId,
-                RoomName = roomName,
-                Message = $"{connectionId} has left the group {roomName}."
-            };
-
-            await Clients.Group(roomName).ReceiveMessage(message);
+                User = Context.ConnectionId,
+                Message = $"{Context.ConnectionId} has left the group {roomName}."
+            });
         }
     }
 }
