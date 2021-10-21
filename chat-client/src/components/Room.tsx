@@ -1,15 +1,15 @@
-import { Component, createRef } from "react";
+import { Component } from "react";
 import { ChatDisplay } from "./ChatDisplay";
 import { ChatInput } from "./ChatInput";
 
 interface Props {
     roomName: string,
-    connection: any
+    connection: any,
+    user: string,
+    leaveRoom: Function
 }
 
 interface State {
-    user: string,
-    userIsSaved: boolean,
     hasMessages: boolean,
     chat: {
         user: string;
@@ -20,23 +20,14 @@ interface State {
 export class Room extends Component<Props, State> {
 
     state: State = {
-        user: '',
-        userIsSaved: false,
         hasMessages: false,
         chat: []
     }
-    // create a ref to store the textInput DOM element
-    private userRef = createRef<HTMLInputElement>();
 
     constructor(props: Props) {
         super(props);
-        // this.setState({
-        //     isClicked: false
-        // })
-        this.handelChange = this.handelChange.bind(this);
-        this.saveUser = this.saveUser.bind(this);
+        this.handleLeave = this.handleLeave.bind(this);
         this.sendMessage = this.sendMessage.bind(this);
-        this.removeUser = this.removeUser.bind(this);
     }
 
     componentDidMount() {
@@ -50,71 +41,43 @@ export class Room extends Component<Props, State> {
                 hasMessages: true,
                 chat: currentChat
             }); 
-
-            console.log('State chat: ', this.state.chat,' State hasMessage: ', this.state.hasMessages);
+            // console.log('State chat: ', this.state.chat,' State hasMessage: ', this.state.hasMessages);
         })
     }
 
-    handelChange() {
-        this.setState({
-            user: this.userRef.current!.value,
-        });
-    }
-
-    saveUser() {
-        this.setState({
-            userIsSaved: true
-        })
-        // this.sendMessage(chatMessage);
-        console.log('ChatMessage: ',this.userRef.current!.value);
-        console.log('State user: ',this.state.user);
+    handleLeave() {
+        this.props.leaveRoom(this.props.roomName);
     }
     
     async sendMessage(message: string) {
         var chatMessage = {
-            user: this.state.user,
+            user: this.props.user,
             message: message,
         }
         await this.props.connection.invoke('SendMessageToGroup', this.props.roomName, chatMessage);
     }
 
-    async removeUser() {
-        if (this.props.connection) {
-            try {
-                await this.props.connection.invoke('RemoveFromGroup', this.props.roomName);
-            } 
-            catch (error) {
-                console.log('Failed to join room: ', error)
-            }
-        }
-        else {
-            alert('No connection to server.');
-        }
-    }
-
     render() {
-        if (!this.state.userIsSaved) {
-            return(
-                <div>
-                    <h1>{this.props.roomName}</h1>
-                    <label htmlFor='user'>Ange ditt användarnamn:</label><br/><br/>
-                    <input id='user' ref={this.userRef} type='text' onChange={this.handelChange} /><br/><br/>
-                    <button onClick={this.saveUser}>Spara</button>
-                </div>
-            )
-        }
-        else if (!this.state.hasMessages){
-            return(
-                <div>
-                    <ChatInput user={this.state.user} roomName={this.props.roomName} sendMessage={(message: string) => this.sendMessage(message)} leaveRoom={() => this.removeUser()}/>
-                </div>
-            )
-        }
-        else if (this.state.userIsSaved && this.state.hasMessages) {
+         if (!this.state.hasMessages){
             return(
                 <div>
                     <div>
-                        <ChatInput user={this.state.user} roomName={this.props.roomName} sendMessage={(message: string) => this.sendMessage(message)} leaveRoom={() => this.removeUser()}/>
+                        <ChatInput user={this.props.user} roomName={this.props.roomName} sendMessage={(message: string) => this.sendMessage(message)} />
+                    </div>
+                    <div>
+                        <button onClick={this.handleLeave}>Lämna</button>
+                    </div>
+                </div>
+            )
+        }
+        else {
+            return(
+                <div>
+                    <div>
+                        <ChatInput user={this.props.user} roomName={this.props.roomName} sendMessage={(message: string) => this.sendMessage(message)} />
+                    </div>
+                    <div>
+                        <button onClick={this.handleLeave}>Lämna</button>
                     </div>
                     <div>
                         <ChatDisplay chat={this.state.chat}/>

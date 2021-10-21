@@ -9,10 +9,6 @@ interface Props {
 
 export class ChatDisplay extends Component<Props, {}> {
 
-    constructor(props: Props) {
-        super(props);
-    }
-
     render() {
         return(
             <div>
