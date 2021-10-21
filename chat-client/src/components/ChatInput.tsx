@@ -3,8 +3,7 @@ import { Component, createRef } from "react";
 type Props = {
     user: string,
     roomName: string,
-    sendMessage: Function,
-    leaveRoom: Function
+    sendMessage: Function
 }
 
 interface State {
@@ -20,7 +19,6 @@ export class ChatInput extends Component<Props, State> {
         super(props);
         this.handelChange = this.handelChange.bind(this);
         this.handleSend = this.handleSend.bind(this);
-        this.handleLeave = this.handleLeave.bind(this);
     }
 
     handelChange() {
@@ -31,14 +29,8 @@ export class ChatInput extends Component<Props, State> {
 
     handleSend() {
         this.props.sendMessage(this.state.message);
-        // console.log('ChatMessage: ',this.messageRef.current!.value);
-        // console.log('State message: ', this.state.message);
         this.messageRef.current!.value = '';
     }    
-
-    handleLeave() {
-        this.props.leaveRoom();
-    }
 
     render() {
         return(
@@ -48,7 +40,6 @@ export class ChatInput extends Component<Props, State> {
                 <label htmlFor='message'>Börja chatta:</label><br/><br/>
                 <input id='message' ref={this.messageRef} type='text'  onChange={this.handelChange}></input><br/><br/>
                 <button onClick={this.handleSend}>Skicka</button><br/><br/><br/><br/>
-                <button onClick={this.handleLeave}>Lämna</button>
             </div>
         )
     }
