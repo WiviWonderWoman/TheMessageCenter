@@ -1,11 +1,8 @@
 # TheMessageCenter
 ### An ASP.NET Core SignalR Chat with a React TypeScript client
-I've chosen to implement idea number 2, "*A chat where everyone can talk to each other, something like Slack.*" by using templets for:
-* **dotnet webapi** for the server-side API
-* **create-react-app --template typescript** for the client, a graphical user interface
-
-To enable real-time communication I'll install @microsoft/signalr on the client.
-___________________________________________________________________________________________________________________________________________________________________________________
+## Status report
+![class-diagram](https://user-images.githubusercontent.com/70144040/138439774-9c1d0f4f-b5d7-415e-ba0c-b46639f02d3b.png)
+________________________________________________________________________________________________________________________________________________________________________________
 # Instructions. 
 ## Instal
 * open a terminal in the root-folder and type:
@@ -21,8 +18,14 @@ ________________________________________________________________________________
 * open a terminal in the root-folder and type:
 * cd chat-client 
 * npm start
-___________________________________________________________________________________________________________________________________________________________________________________
+________________________________________________________________________________________________________________________________________________________________________________
 ## Project planning
+I've chosen to implement idea number 2, "*A chat where everyone can talk to each other, something like Slack.*" by using templets for:
+* **dotnet webapi** for the server-side API
+* **create-react-app --template typescript** for the client, a graphical user interface
+
+To enable real-time communication I'll install @microsoft/signalr on the client.
+
 ### A picture of my initial plan, a Kanban board here in my GitHub repo as a project.
 NOTE:
 * I could not fit all the cards in one To do column so I divided the cards by server and client. 
