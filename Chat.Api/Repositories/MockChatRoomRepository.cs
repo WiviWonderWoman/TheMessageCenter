@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Chat.Api.Repositories
 {
-    // Mock implementation of IChatRoomRepository with hardcoded data (can be reaplaced with database)
+    // Mock implementation of IChatRoomRepository with hardcoded data (reaplace with database)
     public class MockChatRoomRepository : IChatRoomRepository
     {
         public IEnumerable<ChatRoom> AllChatRooms => new List<ChatRoom>
