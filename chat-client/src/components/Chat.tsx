@@ -4,7 +4,10 @@ import { Room } from "./Room";
 
 interface Props {
     user: string,
-    connection: any
+    connection: any,
+    rooms: {
+        roomName: string;
+      }[]
 }
 
 interface State {
@@ -22,6 +25,7 @@ export class Chat extends Component<Props, State> {
     constructor(props: Props) {
         super(props);
         this.handleChange = this.handleChange.bind(this);
+        this.handelRoomChoice = this.handelRoomChoice.bind(this);
         this.handleClick = this.handleClick.bind(this);
         this.joiningRoom = this.joiningRoom.bind(this);
         this.removeUser = this.removeUser.bind(this);
@@ -32,6 +36,15 @@ export class Chat extends Component<Props, State> {
     handleChange() {
         this.setState({
             roomName: this.roomRef.current!.value
+        });
+    }
+
+    handelRoomChoice(room: string) {
+        console.log(room);
+        this.joiningRoom(room);
+        this.setState({
+            roomName: room,
+            hasRoomName: true
         });
     }
 
@@ -81,6 +94,8 @@ export class Chat extends Component<Props, State> {
                 <>
                     <h1>Välkommen till Hotell Mercer's chat!</h1>
                     <img src={chat} alt='chat icon' className='App-logo'></img>
+                    <p>Välj chatrum för att börja chatta:</p>
+                    {this.props.rooms.map((room) => <button onClick={() => this.handelRoomChoice(room.roomName)} key={room.roomName}>{room.roomName}</button>)}
                     <p>Ange namn på chatrum för att börja chatta:</p>
                     <input ref={this.roomRef} type='text' onChange={this.handleChange}/><br/><br/>
                     <button onClick={this.handleClick}>Börja Chatten!</button>

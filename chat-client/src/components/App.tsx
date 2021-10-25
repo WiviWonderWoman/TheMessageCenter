@@ -2,11 +2,13 @@ import { Component, createRef } from "react";
 import chat from "../images/chat.png";
 import { HubConnectionBuilder } from "@microsoft/signalr";
 import { Chat } from "./Chat";
+import {getChatRooms  } from "../api/room";
 
 interface State {
     connection: any,
     user: string,
-    hasUser: boolean
+    hasUser: boolean,
+    rooms: any
 }
 
 export class App extends Component<{}, State> {
@@ -17,7 +19,10 @@ export class App extends Component<{}, State> {
         .withAutomaticReconnect()
         .build(),
         user: '',
-        hasUser: false
+        hasUser: false,
+        rooms: [{
+            roomName: ''
+          }]
     }
 
     constructor(props: any) {
@@ -28,8 +33,13 @@ export class App extends Component<{}, State> {
     // create a ref to store the textInput DOM element
     private userRef = createRef<HTMLInputElement>();
 
-    componentDidMount() {
+    async componentDidMount() {
+        var rooms = await getChatRooms();
+        this.setState({
+            rooms: rooms
+        })
 
+        console.log('Från App rooms: ', this.state.rooms);
         if (this.state.connection) {
             this.state.connection.start()
             .then(() => {
@@ -54,6 +64,8 @@ export class App extends Component<{}, State> {
     }
 
     render() {
+        // console.log('Från App rooms: ', this.state.rooms);
+
         if (!this.state.hasUser) {
             return(
                 <div className='App-header'>
@@ -69,7 +81,7 @@ export class App extends Component<{}, State> {
         else {
             return(
                 <div className='App-header'>
-                    <Chat user={this.state.user} connection={this.state.connection}/>
+                    <Chat rooms={this.state.rooms} user={this.state.user} connection={this.state.connection}/>
                 </div>
             )
         }  
