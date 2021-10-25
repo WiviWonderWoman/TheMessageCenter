@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Chat.Api.Hubs;
+using Chat.Api.Repositories;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -27,6 +28,8 @@ namespace Chat.Api
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddScoped<IChatRoomRepository, MockChatRoomRepository>();
+
             services.AddSignalR();
 
             services.AddCors(options =>
