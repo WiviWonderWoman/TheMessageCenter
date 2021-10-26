@@ -7,7 +7,8 @@ interface Props {
     connection: any,
     rooms: {
         roomName: string;
-      }[]
+      }[],
+      sendRoom: Function
 }
 
 interface State {
@@ -50,6 +51,7 @@ export class Chat extends Component<Props, State> {
 
     handleClick() {
         console.log('Room: ',this.state.roomName);
+        this.props.sendRoom(this.state.roomName);
         this.joiningRoom(this.state.roomName);
         this.setState({
             hasRoomName: true

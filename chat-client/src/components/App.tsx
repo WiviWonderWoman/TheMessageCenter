@@ -38,15 +38,26 @@ export class App extends Component<{}, State> {
         this.setState({
             rooms: rooms
         })
-
-        console.log('Från App rooms: ', this.state.rooms);
+        // console.log('Från App rooms: ', this.state.rooms);
         if (this.state.connection) {
             this.state.connection.start()
             .then(() => {
+                
                 // console.log('User with userId: ', this.state.connection.connectionId, ' is connected!');
             })
             .catch((error: any) => console.log('Connection failed: ', error))
         }
+        this.state.connection.on('SendRoom', (room: { roomName: string}) => {
+
+            var currentRooms = this.state.rooms;
+            currentRooms.push(room);
+
+            this.setState({
+                rooms: currentRooms
+            }); 
+            console.log('App received Room: ', this.state.rooms)
+            // console.log('State chat: ', this.state.chat,' State hasMessage: ', this.state.hasMessages);
+        })
     }
 
     handleChange() {
@@ -63,6 +74,17 @@ export class App extends Component<{}, State> {
         });
     }
 
+    async sendRoomToAll(newRoomName: string) {
+        var room = {
+            roomName: newRoomName
+        }
+        // this.setState({
+        //     rooms: room
+        // })
+        console.log('App sending Room: ', room);
+        await this.state.connection.invoke('SendRoomToAll', room)
+    }
+    
     render() {
         // console.log('Från App rooms: ', this.state.rooms);
 
@@ -81,7 +103,7 @@ export class App extends Component<{}, State> {
         else {
             return(
                 <div className='App-header'>
-                    <Chat rooms={this.state.rooms} user={this.state.user} connection={this.state.connection}/>
+                    <Chat sendRoom={(roomName: string) => this.sendRoomToAll(roomName)} rooms={this.state.rooms} user={this.state.user} connection={this.state.connection}/>
                 </div>
             )
         }  

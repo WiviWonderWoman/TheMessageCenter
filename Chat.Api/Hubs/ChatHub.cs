@@ -11,6 +11,11 @@ namespace Chat.Api.Hubs
             await Clients.Group(roomName).SendAsync("Send", message);
         }
 
+        public async Task SendRoomToAll(ChatRoom chatRoom)
+        {
+            await Clients.All.SendAsync("SendRoom", chatRoom);
+        }
+
         public async Task AddToGroup(string roomName)
         {
             await Groups.AddToGroupAsync(Context.ConnectionId, roomName);
