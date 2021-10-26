@@ -42,7 +42,7 @@ export class Chat extends Component<Props, State> {
 
     handelRoomChoice(room: string) {
         console.log(room);
-        this.joiningRoom(room);
+        this.joiningRoom(room, this.props.user);
         this.setState({
             roomName: room,
             hasRoomName: true
@@ -52,16 +52,16 @@ export class Chat extends Component<Props, State> {
     handleClick() {
         console.log('Room: ',this.state.roomName);
         this.props.sendRoom(this.state.roomName);
-        this.joiningRoom(this.state.roomName);
+        this.joiningRoom(this.state.roomName, this.props.user);
         this.setState({
             hasRoomName: true
         });
     }
 
-    async joiningRoom(roomName: string) {
+    async joiningRoom(roomName: string, userName: string) {
         if (this.props.connection) {
             try {
-                await this.props.connection.invoke('AddToGroup', roomName);
+                await this.props.connection.invoke('AddToGroup', roomName, userName);
             } 
             catch (error) {
                 console.log('Failed to join room: ', error)
@@ -72,10 +72,10 @@ export class Chat extends Component<Props, State> {
         }
     }
 
-    async removeUser(roomName: string) {
+    async removeUser(roomName: string, userName: string) {
         if (this.props.connection) {
             try {
-                await this.props.connection.invoke('RemoveFromGroup', roomName);
+                await this.props.connection.invoke('RemoveFromGroup', roomName, userName);
                 this.setState({
                     roomName: '',
                     hasRoomName: false
@@ -108,7 +108,7 @@ export class Chat extends Component<Props, State> {
         else {
             return(
                 <>
-                    <Room connection={this.props.connection} roomName={this.state.roomName} user={this.props.user} leaveRoom={(roomName: string) => this.removeUser(roomName)} />
+                    <Room connection={this.props.connection} roomName={this.state.roomName} user={this.props.user} leaveRoom={(roomName: string, userName: string) => this.removeUser(roomName, this.props.user)} />
                 </>
             )
         }

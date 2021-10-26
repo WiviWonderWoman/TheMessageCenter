@@ -46,7 +46,7 @@ export class Room extends Component<Props, State> {
     }
 
     handleLeave() {
-        this.props.leaveRoom(this.props.roomName);
+        this.props.leaveRoom(this.props.roomName, this.props.user);
     }
     
     async sendMessage(message: string) {
