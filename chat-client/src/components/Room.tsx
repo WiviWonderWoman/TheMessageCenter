@@ -14,6 +14,7 @@ interface State {
     chat: {
         user: string;
         message: string;
+        color: string;
       }[]
 }
 
@@ -33,9 +34,28 @@ export class Room extends Component<Props, State> {
     componentDidMount() {
         
         this.props.connection.on('Send', (message: { user: string, message: string}) => {
+            var incommingMessage = {
+                user: '',
+                message: '',
+                color: ''
+            };
 
+            if (message.user === this.props.user) {
+               incommingMessage = {
+                   user:'Du: ',
+                   message: message.message,
+                   color: 'orange'
+               } 
+            }
+            else {
+                incommingMessage = {
+                    user: message.user,
+                    message: message.message,
+                    color: ''
+                } 
+            }
             var currentChat = this.state.chat;
-            currentChat.push(message);
+            currentChat.push(incommingMessage);
 
             this.setState({
                 hasMessages: true,
@@ -60,29 +80,29 @@ export class Room extends Component<Props, State> {
     render() {
          if (!this.state.hasMessages){
             return(
-                <div>
-                    <div>
+                <>
+                    <div className='user'>
+                        <p> Inloggad som: {this.props.user}</p>
+                        <button onClick={this.handleLeave}>Lämna {this.props.roomName}</button>
+                    </div>
+                    <div className='room' >
                         <ChatInput user={this.props.user} roomName={this.props.roomName} sendMessage={(message: string) => this.sendMessage(message)} />
                     </div>
-                    <div>
-                        <button onClick={this.handleLeave}>Lämna</button>
-                    </div>
-                </div>
+                </>
             )
         }
         else {
             return(
-                <div>
-                    <div>
+                <>
+                    <div className='user'>
+                        <p> Inloggad som: {this.props.user}</p>
+                        <button onClick={this.handleLeave}>Lämna {this.props.roomName}</button>
+                    </div>
+                    <div className='room'>
+                        <ChatDisplay chat={this.state.chat}/>
                         <ChatInput user={this.props.user} roomName={this.props.roomName} sendMessage={(message: string) => this.sendMessage(message)} />
                     </div>
-                    <div>
-                        <button onClick={this.handleLeave}>Lämna</button>
-                    </div>
-                    <div>
-                        <ChatDisplay chat={this.state.chat}/>
-                    </div>
-                </div>
+                </>
             )
         }
         

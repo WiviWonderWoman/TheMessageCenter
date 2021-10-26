@@ -94,13 +94,20 @@ export class Chat extends Component<Props, State> {
         if (!this.state.hasRoomName) {
             return(
                 <>
-                    <h1>Välkommen till Hotell Mercer's chat!</h1>
+                <div className='App-header'>
                     <img src={chat} alt='chat icon' className='App-logo'></img>
-                    <p>Välj chatrum för att börja chatta:</p>
+                    <h2>Välj chatrum för att börja chatta:</h2>
+                </div>
+                    <div className='roomMenu'>
                     {this.props.rooms.map((room) => <button onClick={() => this.handelRoomChoice(room.roomName)} key={room.roomName}>{room.roomName}</button>)}
-                    <p>Ange namn på chatrum för att börja chatta:</p>
-                    <input ref={this.roomRef} type='text' onChange={this.handleChange}/><br/><br/>
-                    <button onClick={this.handleClick}>Börja Chatten!</button>
+                </div>
+                <div className='roomMenu'>
+                <p className='input'>Eller skapa ett nytt chatrum: </p>
+                    <input  ref={this.roomRef} type='text' onChange={this.handleChange}/>
+                    <button onClick={this.handleClick}>Skapa</button>
+                </div>
+                    
+                
                 </>
             )
         }
@@ -108,6 +115,10 @@ export class Chat extends Component<Props, State> {
         else {
             return(
                 <>
+                    <div className='App-header'>
+                        <h1>{this.state.roomName}</h1>
+                        <img src={chat} alt='chat icon' className='App-logo'></img>
+                    </div>
                     <Room connection={this.props.connection} roomName={this.state.roomName} user={this.props.user} leaveRoom={(roomName: string, userName: string) => this.removeUser(roomName, this.props.user)} />
                 </>
             )
