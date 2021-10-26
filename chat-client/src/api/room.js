@@ -9,7 +9,7 @@ export async function getChatRooms() {
         }
         var rooms = [{}]
         rooms = response.data;
-        console.log('Från rooms.js: ', response.data)
+        // console.log('Från rooms.js: ', response.data)
         return rooms;
     } 
     catch (error) {
