@@ -33,13 +33,12 @@ export class ChatInput extends Component<Props, State> {
     }    
 
     render() {
+        var value = 'Medelande till '+this.props.roomName
         return(
-            <div>
-                <h1>{this.props.roomName}</h1>
-                <p> Inloggad som: {this.props.user}</p>
-                <label htmlFor='message'>Börja chatta:</label><br/><br/>
-                <input id='message' ref={this.messageRef} type='text'  onChange={this.handelChange}></input><br/><br/>
-                <button onClick={this.handleSend}>Skicka</button><br/><br/><br/><br/>
+            <div className='chatInput'>
+                {/* <label htmlFor='message'>Börja chatta:</label><br/> */}
+                <input id='message' ref={this.messageRef} type='text' onChange={this.handelChange} placeholder={value}></input><br/>
+                <button onClick={this.handleSend}>Skicka</button>
             </div>
         )
     }

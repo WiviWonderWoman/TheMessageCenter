@@ -23,7 +23,7 @@ namespace Chat.Api.Hubs
             await Clients.Group(roomName).SendAsync("Send", new ChatMessage
             {
                 User = "",
-                Message = $"{userName} har gått med i gruppen."
+                Message = $"Vi välkomnar {userName} till {roomName}!"
             });
         }
 
@@ -34,7 +34,7 @@ namespace Chat.Api.Hubs
             await Clients.Group(roomName).SendAsync("Send", new ChatMessage
             {
                 User = "",
-                Message = $"{userName} har lämnat gruppen."
+                Message = $"{userName} har lämnat {roomName}."
             });
         }
     }

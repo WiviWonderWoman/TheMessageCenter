@@ -101,8 +101,9 @@ export class App extends Component<{}, State> {
         }
 
         else {
+            // className='App-header'
             return(
-                <div className='App-header'>
+                <div >
                     <Chat sendRoom={(roomName: string) => this.sendRoomToAll(roomName)} rooms={this.state.rooms} user={this.state.user} connection={this.state.connection}/>
                 </div>
             )

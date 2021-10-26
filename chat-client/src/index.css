@@ -1,37 +1,80 @@
 body {
-  margin: 0;
+  /* margin: 10%; */
+  /* width: 80%; */
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
     'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  font-size: calc(10px + 2vmin);
+  background-color: #282c34;
+  color: whitesmoke;
 }
-
-.App {
-  text-align: center;
+ button {
+  color: #282c34;
+  background-color: rgba(252, 118, 40, 0.842);
+  font-size: calc(10px + 2vmin);
+  padding: 1%;
+  border: lightsteelblue 1px solid;
+  border-radius: 10%;
+ }
+ .input {
+  margin: 2%;
+ }
+ input {
+  font-size: calc(10px + 2vmin);
+ }
+.user {
+  text-align: right;
 }
-
 .App-logo {
-  height: 40vmin;
+  height: 20vmin;
   pointer-events: none;
 }
-
+.roomMenu {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.roomMenu button {
+  margin-right: 2%;
+}
 .App-header {
   background-color: #282c34;
-  min-height: 100vh;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+  /* color: white; */
 }
-
-.App-link {
-  color: #61dafb;
+.chatInput {
+  background-color: #282c34;
+  min-height: 30vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin: 2%;
+  width: 80%;
 }
-
+.chatDisplay {
+  background-color: whitesmoke;
+  color: #282c34;
+  display: flex;
+  flex-direction: column;
+  padding: 2%;
+  margin-top: 5%;
+  width: 80%;
+}
+.room {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
 .chatList {
   list-style: none;
 }
-
+.orange {
+  color: rgb(221, 84, 4);
+}
