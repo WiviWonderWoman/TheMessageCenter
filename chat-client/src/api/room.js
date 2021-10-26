@@ -7,9 +7,9 @@ export async function getChatRooms() {
         if (response.status !== 200) {
             throw Error(response.statusText);
         }
+        // console.log('Från rooms.js: ', response.data)
         var rooms = [{}]
         rooms = response.data;
-        // console.log('Från rooms.js: ', response.data)
         return rooms;
     } 
     catch (error) {
