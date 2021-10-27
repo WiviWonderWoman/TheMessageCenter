@@ -33,10 +33,9 @@ export class ChatInput extends Component<Props, State> {
     }    
 
     render() {
-        var value = 'Medelande till '+this.props.roomName
+        var value = 'Skriv till '+this.props.roomName;
         return(
             <div className='chatInput'>
-                {/* <label htmlFor='message'>Börja chatta:</label><br/> */}
                 <input id='message' ref={this.messageRef} type='text' onChange={this.handelChange} placeholder={value}></input><br/>
                 <button onClick={this.handleSend}>Skicka</button>
             </div>

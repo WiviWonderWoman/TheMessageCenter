@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace Chat.Api.Repositories
 {
-    // Mock implementation of IChatRoomRepository with hardcoded data (reaplace with database)
+    // Mock implementation of IChatRoomRepository with hardcoded "standard-rooms" (reaplace with database)
     public class MockChatRoomRepository : IChatRoomRepository
     {
         public IEnumerable<ChatRoom> AllChatRooms => new List<ChatRoom>
