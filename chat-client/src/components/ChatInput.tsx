@@ -17,11 +17,11 @@ export class ChatInput extends Component<Props, State> {
 
     constructor(props: Props) {
         super(props);
-        this.handelChange = this.handelChange.bind(this);
+        this.handleChange = this.handleChange.bind(this);
         this.handleSend = this.handleSend.bind(this);
     }
 
-    handelChange() {
+    handleChange() {
         this.setState({
             message: this.messageRef.current!.value
         });
@@ -36,7 +36,7 @@ export class ChatInput extends Component<Props, State> {
         var value = 'Skriv till '+this.props.roomName;
         return(
             <div className='chatInput'>
-                <input id='message' ref={this.messageRef} type='text' onChange={this.handelChange} placeholder={value}></input><br/>
+                <input id='message' ref={this.messageRef} type='text' onChange={this.handleChange} placeholder={value}></input><br/>
                 <button onClick={this.handleSend}>Skicka</button>
             </div>
         )

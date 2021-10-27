@@ -26,7 +26,7 @@ export class Chat extends Component<Props, State> {
     constructor(props: Props) {
         super(props);
         this.handleChange = this.handleChange.bind(this);
-        this.handelRoomChoice = this.handelRoomChoice.bind(this);
+        this.handleRoomChoice = this.handleRoomChoice.bind(this);
         this.handleClick = this.handleClick.bind(this);
         this.joiningRoom = this.joiningRoom.bind(this);
         this.removeUser = this.removeUser.bind(this);
@@ -40,7 +40,7 @@ export class Chat extends Component<Props, State> {
         });
     }
 
-    handelRoomChoice(room: string) {
+    handleRoomChoice(room: string) {
         console.log(room);
         this.joiningRoom(room, this.props.user);
         this.setState({
@@ -99,7 +99,7 @@ export class Chat extends Component<Props, State> {
                         <h2>Välj chatrum</h2>
                     </div>
                         <div className='roomMenu'>
-                        {this.props.rooms.map((room) => <button onClick={() => this.handelRoomChoice(room.roomName)} key={room.roomName}>{room.roomName}</button>)}
+                        {this.props.rooms.map((room) => <button onClick={() => this.handleRoomChoice(room.roomName)} key={room.roomName}>{room.roomName}</button>)}
                     </div>
                     <div className='roomMenu'>
                     <p className='input'>Eller skapa ett nytt:</p>
@@ -117,7 +117,7 @@ export class Chat extends Component<Props, State> {
                         <h1>{this.state.roomName}</h1>
                         <img src={chat} alt='chat icon' className='App-logo'></img>
                     </div>
-                    <Room connection={this.props.connection} roomName={this.state.roomName} user={this.props.user} leaveRoom={(roomName: string, userName: string) => this.removeUser(roomName, this.props.user)} />
+                    <Room connection={this.props.connection} roomName={this.state.roomName} user={this.props.user} leaveRoom={(roomName: string) => this.removeUser(roomName, this.props.user)} />
                 </>
             )
         }
