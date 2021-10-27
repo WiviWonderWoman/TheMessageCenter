@@ -7,7 +7,7 @@ interface Props {
         color: string;
       }[]
 }
-
+ 
 export class ChatDisplay extends Component<Props, {}> {
 
     render() {

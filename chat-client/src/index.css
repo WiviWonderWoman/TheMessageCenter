@@ -1,6 +1,4 @@
 body {
-  /* margin: 10%; */
-  /* width: 80%; */
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
     'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
     sans-serif;
@@ -14,14 +12,12 @@ body {
   color: #282c34;
   background-color: rgba(252, 118, 40, 0.842);
   font-size: calc(10px + 2vmin);
-  padding: 1%;
+  /* padding: 1%; */
   border: lightsteelblue 1px solid;
   border-radius: 10%;
  }
- .input {
-  margin: 2%;
- }
  input {
+  margin: 2%;
   font-size: calc(10px + 2vmin);
  }
 .user {
@@ -45,7 +41,6 @@ body {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  /* color: white; */
 }
 .chatInput {
   background-color: #282c34;

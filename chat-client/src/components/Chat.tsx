@@ -64,7 +64,7 @@ export class Chat extends Component<Props, State> {
                 await this.props.connection.invoke('AddToGroup', roomName, userName);
             } 
             catch (error) {
-                console.log('Failed to join room: ', error)
+                console.log('Failed to join room: ', error);
             }
         }
         else {
@@ -79,10 +79,10 @@ export class Chat extends Component<Props, State> {
                 this.setState({
                     roomName: '',
                     hasRoomName: false
-                })
+                });
             } 
             catch (error) {
-                console.log('Failed to join room: ', error)
+                console.log('Failed to join room: ', error);
             }
         }
         else {
@@ -94,20 +94,18 @@ export class Chat extends Component<Props, State> {
         if (!this.state.hasRoomName) {
             return(
                 <>
-                <div className='App-header'>
-                    <img src={chat} alt='chat icon' className='App-logo'></img>
-                    <h2>Välj chatrum för att börja chatta:</h2>
-                </div>
+                    <div className='App-header'>
+                        <img src={chat} alt='chat icon' className='App-logo'></img>
+                        <h2>Välj chatrum</h2>
+                    </div>
+                        <div className='roomMenu'>
+                        {this.props.rooms.map((room) => <button onClick={() => this.handelRoomChoice(room.roomName)} key={room.roomName}>{room.roomName}</button>)}
+                    </div>
                     <div className='roomMenu'>
-                    {this.props.rooms.map((room) => <button onClick={() => this.handelRoomChoice(room.roomName)} key={room.roomName}>{room.roomName}</button>)}
-                </div>
-                <div className='roomMenu'>
-                <p className='input'>Eller skapa ett nytt chatrum: </p>
-                    <input  ref={this.roomRef} type='text' onChange={this.handleChange}/>
-                    <button onClick={this.handleClick}>Skapa</button>
-                </div>
-                    
-                
+                    <p className='input'>Eller skapa ett nytt:</p>
+                        <input  ref={this.roomRef} type='text' onChange={this.handleChange}/>
+                        <button onClick={this.handleClick}>Skapa</button>
+                    </div>
                 </>
             )
         }

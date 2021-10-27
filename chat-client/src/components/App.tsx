@@ -34,41 +34,39 @@ export class App extends Component<{}, State> {
     private userRef = createRef<HTMLInputElement>();
 
     async componentDidMount() {
+
         var rooms = await getChatRooms();
         this.setState({
             rooms: rooms
-        })
-        // console.log('Från App rooms: ', this.state.rooms);
+        });
+
         if (this.state.connection) {
             this.state.connection.start()
             .then(() => {
-                
-                // console.log('User with userId: ', this.state.connection.connectionId, ' is connected!');
+                console.log('User with userId: ', this.state.connection.connectionId, ' is connected!');
             })
-            .catch((error: any) => console.log('Connection failed: ', error))
+            .catch((error: any) => console.log('Connection failed: ', error));
+
+            this.state.connection.on('SendRoom', (room: { roomName: string}) => {
+
+                var currentRooms = this.state.rooms;
+                currentRooms.push(room);
+    
+                this.setState({
+                    rooms: currentRooms
+                }); 
+                console.log('App received Room: ', this.state.rooms)
+            });
         }
-        this.state.connection.on('SendRoom', (room: { roomName: string}) => {
-
-            var currentRooms = this.state.rooms;
-            currentRooms.push(room);
-
-            this.setState({
-                rooms: currentRooms
-            }); 
-            console.log('App received Room: ', this.state.rooms)
-            // console.log('State chat: ', this.state.chat,' State hasMessage: ', this.state.hasMessages);
-        })
     }
 
     handleChange() {
-        // console.log('user: ', this.userNameRef.current!.value);
         this.setState({
             user: this.userRef.current!.value
         });
     }
 
     handleClick() {
-        // console.log('User: ',this.state.user);
         this.setState({
             hasUser: true
         });
@@ -77,21 +75,16 @@ export class App extends Component<{}, State> {
     async sendRoomToAll(newRoomName: string) {
         var room = {
             roomName: newRoomName
-        }
-        // this.setState({
-        //     rooms: room
-        // })
-        console.log('App sending Room: ', room);
+        };
         await this.state.connection.invoke('SendRoomToAll', room)
     }
     
     render() {
-        // console.log('Från App rooms: ', this.state.rooms);
 
         if (!this.state.hasUser) {
             return(
                 <div className='App-header'>
-                    <h1>Välkommen till Hotell Mercer's chat!</h1>
+                    <h2>Välkommen till Hotell Mercer's chat!</h2>
                     <img src={chat} alt='chat icon' className='App-logo'></img>
                     <p>Ange användarnamn för att börja chatta:</p>
                     <input ref={this.userRef} type='text' onChange={this.handleChange}/><br/><br/>
@@ -99,9 +92,7 @@ export class App extends Component<{}, State> {
                 </div>
             )
         }
-
         else {
-            // className='App-header'
             return(
                 <div >
                     <Chat sendRoom={(roomName: string) => this.sendRoomToAll(roomName)} rooms={this.state.rooms} user={this.state.user} connection={this.state.connection}/>
