@@ -17,20 +17,16 @@
 ________________________________________________________________________________________________________________________________________________________________________________
 ________________________________________________________________________________________________________________________________________________________________________________
 ## System architecture
-### Class diagram - Status report
-*(Click on the image to enlarge)*
-
-<img src="./Documentation/class-diagram1.png" width="400px">
 
 ### Class diagram -  Current Status
 *(Click on the image to enlarge)*
 
-<img src="./Documentation/class-diagram2.png" width="400px">
+<img src="./Documentation/class-diagram.png" width="400px">
 
 ### Class diagram - Further development
 *(Click on the image to enlarge)*
 
-<img src="./Documentation/class-diagram3.png" width="400px">
+<img src="./Documentation/class-diagram-further-development.png" width="400px">
 
 ________________________________________________________________________________________________________________________________________________________________________________
 ________________________________________________________________________________________________________________________________________________________________________________
