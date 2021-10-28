@@ -36,7 +36,7 @@ export class ChatInput extends Component<Props, State> {
         var value = 'Skriv till '+this.props.roomName;
         return(
             <div className='chatInput'>
-                <input id='message' ref={this.messageRef} type='text' onChange={this.handleChange} placeholder={value}></input><br/>
+                <input autoComplete="off" id='message' ref={this.messageRef} type='text' onChange={this.handleChange} placeholder={value}></input><br/>
                 <button onClick={this.handleSend}>Skicka</button>
             </div>
         )
