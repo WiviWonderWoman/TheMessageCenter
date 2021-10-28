@@ -39,19 +39,19 @@ I've chosen to implement idea number 2, "*A chat where everyone can talk to each
 To enable real-time communication I'll install @microsoft/signalr on the client.
 
 ### Initial plan
+NOTE:
+* I could not fit all the cards in one To do column so I divided the cards by server and client. 
+* I hope this picture is initial enough although I've already crossed tasks off and moved some cards.
+* 
 *(Click on the image to enlarge)*
 
 <img src="./Documentation/initial-plan.png" width="400px">
 
-NOTE:
-* I could not fit all the cards in one To do column so I divided the cards by server and client. 
-* I hope this picture is initial enough although I've already crossed tasks off and moved some cards.
-________________________________________________________________________________________________________________________________________________________________________________
 ### Project status at Status report.
 *(Click on the image to enlarge)*
 
 <img src="./Documentation/status-report.png" width="400px">
-________________________________________________________________________________________________________________________________________________________________________________
+
 ### Current project status.
 *(Click on the image to enlarge)*
 
