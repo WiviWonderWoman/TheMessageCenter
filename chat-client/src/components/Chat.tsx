@@ -29,6 +29,7 @@ export class Chat extends Component<Props, State> {
         this.handleRoomChoice = this.handleRoomChoice.bind(this);
         this.handleClick = this.handleClick.bind(this);
         this.joiningRoom = this.joiningRoom.bind(this);
+        this.sendMessage = this.sendMessage.bind(this);
         this.removeUser = this.removeUser.bind(this);
     }
     // create a ref to store the textInput DOM element
@@ -70,6 +71,14 @@ export class Chat extends Component<Props, State> {
         else {
             alert('No connection to server.');
         }
+    }
+
+    async sendMessage(message: string) {
+        var chatMessage = {
+            user: this.props.user,
+            message: message,
+        };
+        await this.props.connection.invoke('SendMessageToGroup', this.state.roomName, chatMessage);
     }
 
     async removeUser(roomName: string, userName: string) {
@@ -117,7 +126,7 @@ export class Chat extends Component<Props, State> {
                         <h1>{this.state.roomName}</h1>
                         <img src={chat} alt='chat icon' className='App-logo'></img>
                     </div>
-                    <Room connection={this.props.connection} roomName={this.state.roomName} user={this.props.user} leaveRoom={(roomName: string) => this.removeUser(roomName, this.props.user)} />
+                    <Room connection={this.props.connection} roomName={this.state.roomName} user={this.props.user} sendMessage={(message: string) => this.sendMessage(message)} leaveRoom={(roomName: string) => this.removeUser(roomName, this.props.user)} />
                 </>
             )
         }

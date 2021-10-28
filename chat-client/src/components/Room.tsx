@@ -6,6 +6,7 @@ interface Props {
     roomName: string,
     connection: any,
     user: string,
+    sendMessage: Function,
     leaveRoom: Function
 }
 
@@ -26,7 +27,7 @@ export class Room extends Component<Props, State> {
     constructor(props: Props) {
         super(props);
         this.handleLeave = this.handleLeave.bind(this);
-        this.sendMessage = this.sendMessage.bind(this);
+        this.handleSend = this.handleSend.bind(this);
     }
 
     componentDidMount() {
@@ -61,12 +62,8 @@ export class Room extends Component<Props, State> {
         this.props.leaveRoom(this.props.roomName, this.props.user);
     }
     
-    async sendMessage(message: string) {
-        var chatMessage = {
-            user: this.props.user,
-            message: message,
-        };
-        await this.props.connection.invoke('SendMessageToGroup', this.props.roomName, chatMessage);
+    handleSend(message: string) {
+        this.props.sendMessage(message);
     }
 
     render() {
@@ -78,7 +75,7 @@ export class Room extends Component<Props, State> {
                 </div>
                 <div className='room'>
                     <ChatDisplay chat={this.state.chat}/>
-                    <ChatInput user={this.props.user} roomName={this.props.roomName} sendMessage={(message: string) => this.sendMessage(message)} />
+                    <ChatInput user={this.props.user} roomName={this.props.roomName} sendMessage={(message: string) => this.handleSend(message)} />
                 </div>
             </>
         )
