@@ -51,3 +51,8 @@ ________________________________________________________________________________
 *(Click on the image to enlarge)*
 
 <img src="./Documentation/status-report.png" width="400px">
+________________________________________________________________________________________________________________________________________________________________________________
+### Current project status.
+*(Click on the image to enlarge)*
+
+<img src="./Documentation/current-status.png" width="400px">
